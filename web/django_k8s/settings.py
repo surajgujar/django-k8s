@@ -27,7 +27,13 @@ SECRET_KEY = 'django-insecure-_8ae-^@qi#y-*$^7e0wnldw39ct1v&+*d_$8xn4*lsv)%y#n!-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get("DEBUG")) == "1"
 
+URL_ALLOWED_HOST = os.environ.get("ALLOWED_HOSTS")
+
 ALLOWED_HOSTS = []
+if URL_ALLOWED_HOST:
+    ALLOWED_HOSTS = [URL_ALLOWED_HOST]
+
+
 
 
 # Application definition
@@ -82,6 +88,7 @@ DATABASES = {
     }
 }
 
+DB_IGNORE_SSL = os.environ.get("DB_IGNORE_SSL")=="true"
 DB_DATABASE = os.environ.get("POSTGRES_DB")
 DB_USERNAME = os.environ.get("POSTGRES_USER")
 DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
@@ -105,6 +112,10 @@ if DB_IS_AVAILABLE and POSTGRES_READY:
         }
     }    
 
+# if not DB_IGNORE_SSL:
+#     DATABASES["default"]["OPTIONS"] = {
+#             "sslmode": "require"
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
