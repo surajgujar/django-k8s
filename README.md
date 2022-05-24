@@ -1,2 +1,2 @@
 # django-k8s
-Django deployment with k8s
+Deploytment of django application on k8s
